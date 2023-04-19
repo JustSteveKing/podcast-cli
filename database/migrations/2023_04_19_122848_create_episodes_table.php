@@ -10,18 +10,22 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('podcasts', static function (Blueprint $table): void {
+        Schema::create('episodes', static function (Blueprint $table): void {
             $table->ulid('id')->primary();
 
             $table->string('title');
-            $table->string('generator')->nullable();
-            $table->string('copyright')->nullable();
-            $table->string('language')->nullable();
-            $table->string('link')->nullable();
-            $table->string('feed_url')->unique();
-            $table->text('description')->nullable();
+            $table->string('link');
+            $table->text('description');
 
-            $table->json('image')->nullable();
+            $table->json('media')->nullable();
+
+            $table->boolean('listened')->default(false);
+
+            $table
+                ->foreignUlid('podcast_id')
+                ->index()
+                ->constrained()
+                ->cascadeOnDelete();
 
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
@@ -30,6 +34,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('podcasts');
+        Schema::dropIfExists('episodes');
     }
 };

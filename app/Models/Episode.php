@@ -1,41 +1,38 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class Podcast extends Model
+class Episode extends Model
 {
     use HasFactory;
     use HasUlids;
 
     protected $fillable = [
         'title',
-        'generator',
-        'copyright',
-        'language',
         'link',
-        'feed_url',
         'description',
-        'image',
+        'media',
+        'listened',
+        'podcast_id',
         'published_at',
     ];
 
     protected $casts = [
-        'image' => AsArrayObject::class,
+        'media' => AsArrayObject::class,
+        'listened' => 'boolean',
         'published_at' => 'datetime',
     ];
 
-    public function episodes(): HasMany
+    public function podcast(): BelongsTo
     {
-        return $this->hasMany(
-            related: Episode::class,
+        return $this->belongsTo(
+            related: Podcast::class,
             foreignKey: 'podcast_id',
         );
     }
