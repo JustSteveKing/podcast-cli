@@ -27,7 +27,8 @@
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.9",
         "mockery/mockery": "^1.5.1",
-        "pestphp/pest": "^2.5.1"
+        "pestphp/pest": "^2.5.1",
+        "phpstan/phpstan": "^1.10"
     },
     "autoload": {
         "psr-4": {
@@ -41,6 +42,14 @@
             "Tests\\": "tests/"
         }
     },
+  "scripts": {
+    "pint": [
+      "./vendor/bin/pint"
+    ],
+    "stan": [
+      "./vendor/bin/phpstan analyse --memory-limit=2G"
+    ]
+  },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
