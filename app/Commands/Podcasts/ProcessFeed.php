@@ -70,7 +70,7 @@ final class ProcessFeed extends Command
                 'feed_url' => $url,
                 'description' => $channel->getDescription(),
                 'image' => $channel->getImage(),
-                'published_at' => $channel->getLastBuildDate()->format('Y-m-d H:i:s'),
+                'published_at' => ($channel->getLastBuildDate() ?? null)?->format('Y-m-d H:i:s'),
             ],
         );
 
